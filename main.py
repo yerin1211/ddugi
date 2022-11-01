@@ -21,7 +21,7 @@ async def on_ready():
 
 @bot.command()
 async def 명령어(message):
-    명령어 = '내가 기능이 뭐가 있겠니? hello밖에 못함 수고'
+    명령어 = '내가 기능이 뭐가 있겠니? hello밖에 못함 수고~'
     명령어 += 'ㅋ'
     await message.channel.send(명령어)
 
