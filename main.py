@@ -4,6 +4,7 @@ import discord
 from discord.ext import commands
 import random  # 랜덤 함수 사용
 import time  # 시간 관련 함수 사용
+import sys
 
 TOKEN = os.environ.get('BOT_TOKEN_DDUGIBOT')  # 시스템 환경 변수에 접근해 토큰 값 불러옴
 intents = discord.Intents.all()
@@ -18,6 +19,7 @@ bot = commands.Bot(
 @bot.event
 async def on_ready():
     print(f'Login bot: {bot.user}')
+    print(sys.version)
 
 @bot.command()
 async def 명령어(message):
