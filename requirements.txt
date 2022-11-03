@@ -1,2 +1,4 @@
-git+https://github.com/Rapptz/discord.py
 discord==1.7.3
+asyncio==3.4.3
+openpyxl==3.0.9
+numpy==1.12.2
