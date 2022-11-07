@@ -5,8 +5,9 @@ from discord.ext import commands
 import random  # 랜덤 함수 사용
 import time  # 시간 관련 함수 사용
 import sys
+from keep_alive import keep_alive
 
-TOKEN = os.environ.get('BOT_TOKEN_DDUGIBOT')  # 시스템 환경 변수에 접근해 토큰 값 불러옴
+TOKEN = os.environ['BOT_TOKEN_DDUGIBOT']  # 시스템 환경 변수에 접근해 토큰 값 불러옴
 intents = discord.Intents.all()
 
 bot = commands.Bot(
@@ -15,11 +16,30 @@ bot = commands.Bot(
     activity=discord.Game("!명령어"),  # 상태 메시지 설정
     intents=intents  # 봇이 어떤 정보까지 접근할 것인지 설정
 )
- 
+
+''' 이 코드 추가하면 작동이 안 됨. 명령어 부분은 정상 작동.
+@bot.event
+async def on_message(message):
+    # 봇 자신이 보내는 메세지는 무시
+    if message.author == bot.user:
+        return
+
+    # 명령어가 아닌 메시지들은 여기에서 처리
+    if message.content == "안녕" or message.content == "하이":
+        await message.channel.send("하이하이")
+
+    # 명령어를 체크할 수 있도록 함
+    await bot.process_commands(message)
+
+'''
+
+
 @bot.event
 async def on_ready():
     print(f'Login bot: {bot.user}')
     print(sys.version)
+    keep_alive()
+    print('keep_alive() started')
 
 @bot.command()
 async def 명령어(message):
@@ -35,6 +55,11 @@ async def hello(message):
 async def 핑(message):
     await message.channel.send(f'퐁! {round(round(bot.latency, 4)*1000)}ms')  # 핑 체크
 
+@bot.event
+async def on_message(message):
+     
+    if message.author == bot.user:  # 봇 자신이 보내는 메세지는 무시
+        return
 
 
 
@@ -53,5 +78,4 @@ async def 핑(message):
 
 
 
-
-bot.run('MTAzNTc2MjMyOTU0OTI5NTY3Nw.GALZOL.AxKScS2I8duKXQLf8QIUjlrDPKxovStdI6QMKI')
+bot.run(TOKEN)
